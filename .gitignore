@@ -1,0 +1,50 @@
+# --------------------------
+# Node.js / Build outputs
+# --------------------------
+node_modules/
+dist/
+build/
+coverage/
+.env
+.env.local
+.env.*.local
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# --------------------------
+# Jenkins pipeline artifacts
+# --------------------------
+artifacts/
+*.zip
+*.tar.gz
+*.tgz
+vainterior-*.zip
+vainterior-all-artifacts-*.zip
+
+# --------------------------
+# Kubernetes / Security (never commit kubeconfigs!)
+# --------------------------
+kubeconfig*
+*.kubeconfig
+.helm/
+*.crt
+*.key
+*.pem
+
+# --------------------------
+# IDE / OS
+# --------------------------
+.vscode/
+.idea/
+*.iml
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# --------------------------
+# Docker / Trivy cache
+# --------------------------
+docker-compose.override.yml
+.trivy-cache/
