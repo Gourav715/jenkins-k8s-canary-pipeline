@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vainterior-canary
+  namespace: vainterior
+  labels:
+    app: vainterior
+    track: canary
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: vainterior
+      track: canary
+  template:
+    metadata:
+      labels:
+        app: vainterior
+        track: canary
+    spec:
+      imagePullSecrets:
+        - name: registry-credentials
+      containers:
+        - name: vainterior
+          image: your-registry/vainterior-app:latest   # Replace with your registry
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            failureThreshold: 3
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            failureThreshold: 3
